@@ -9,6 +9,7 @@
           <h4 class="card-title"><%= link_to product.name, product %> <span class="label label-default"><%= product.brand %></span></h4>
           <p class="card-text"><%= product.description %></p>
           <a href="#" class="btn btn-success btn-block"><i class="fa fa-cart-plus"></i> Buy now</a>
+          <%= link_to 'Like', like_product_path, class: 'btn btn-info' %>
         </div>
       </div>
     </div>
