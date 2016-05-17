@@ -1,5 +1,10 @@
 Rails.application.routes.draw do
-  resources :products
+  resources :products do
+    member do
+      get :like, :unlike
+    end
+  end
+  
   resources :accounts
   get 'pages/home'
 
