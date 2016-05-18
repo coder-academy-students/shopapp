@@ -1,18 +1,27 @@
 class ProductsController < ApplicationController
-  before_action :set_product, only: [:show, :edit, :update, :destroy, :like]
+  before_action :set_product, only: [:show, :edit, :update, :destroy, :like, :unlike]
 
   def like
     @product.liked_by current_user
     redirect_to :back
   end
 
-  
+  def unlike
+    @product.unliked_by current_user
+    redirect_to :back
+  end
+
+
 
 
   # GET /products
   # GET /products.json
   def index
-    @products = Product.all
+    if params[:tag]
+      @products = Product.tagged_with(params[:tag])
+    else
+      @products = Product.all
+    end
   end
 
   # GET /products/1
@@ -39,6 +48,7 @@ class ProductsController < ApplicationController
         format.html { redirect_to @product, notice: 'Product was successfully created.' }
         format.json { render :show, status: :created, location: @product }
       else
+        @product.name = 'Hello'
         format.html { render :new }
         format.json { render json: @product.errors, status: :unprocessable_entity }
       end
@@ -77,6 +87,6 @@ class ProductsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def product_params
-      params.require(:product).permit(:name, :description, :image, :colour, :price, :brand, :available)
+      params.require(:product).permit(:name, :description, :image, :colour, :price, :brand, :available, :tag_list)
     end
 end

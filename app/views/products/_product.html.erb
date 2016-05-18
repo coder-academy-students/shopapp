@@ -1,0 +1,19 @@
+<div class="col-md-4">
+  <div class="card">
+    <img class="card-img-top" data-src="<%= product.image %>" alt="Card image cap" width="100%">
+    <div class="card-block">
+      <h4 class="card-title"><%= link_to product.name, product %> <span class="label label-default"><%= product.brand %></span></h4>
+      <p class="card-text"><%= product.description %></p>
+      <a href="#" class="btn btn-success btn-block"><i class="fa fa-cart-plus"></i> Buy now</a>
+      <% if user_signed_in? %>
+        <% if current_user.voted_for? product %>
+          Unlike
+        <% else %>
+          <%= link_to '<i class="fa fa-thumbs-up"></i>'.html_safe, like_product_path(product), class: 'btn btn-info' %>
+        <% end %>
+      <% end %>
+
+      Likes: <%= product.votes_for.size %>
+    </div>
+  </div>
+</div>
